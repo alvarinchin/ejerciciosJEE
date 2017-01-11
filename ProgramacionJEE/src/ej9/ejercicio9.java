@@ -1,12 +1,7 @@
 package ej9;
 
-import static prueba.ejercicio7.UtilHtml.generaSelect;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import javafx.scene.SubScene;
+import static prueba.ejercicio7.UtilHtml.*;
 
 /**
  * Servlet implementation class ejercicio9
@@ -58,15 +53,6 @@ public class ejercicio9 extends HttpServlet {
 		out.println("</form>");
 	}
 	
-	private String nombreArchivo(Part parte){
-		for ( String cd: parte.getHeader("content-disposition").split(";")){
-				if ( cd.trim().startsWith("filename")){
-					String filename=cd.substring(cd.lastIndexOf('=')+1).trim().replace("\"", "");
-					return filename.substring(filename.lastIndexOf('/')+1).substring(filename.lastIndexOf('\\')+1);
-				}
-		}
-		return null;
-		
-	}
+	
 
 }

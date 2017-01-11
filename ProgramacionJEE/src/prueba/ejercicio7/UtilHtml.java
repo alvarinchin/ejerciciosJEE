@@ -2,6 +2,8 @@ package prueba.ejercicio7;
 
 import java.util.Map;
 
+import javax.servlet.http.Part;
+
 public class UtilHtml {
 
 	public static String generaRadio(String nombre, Map<String, String> listado, String seleccionado) {
@@ -28,12 +30,12 @@ public class UtilHtml {
 		String res = "";
 
 		for (String elem : listado.keySet()) {
-			String checked="";
+			String checked = "";
 			for (String sel : selecccionado) {
-				if (listado.get(elem).equals(sel)){
-					checked="checked=\"checked\"";
+				if (listado.get(elem).equals(sel)) {
+					checked = "checked=\"checked\"";
 				}
-				
+
 			}
 			String etiqueta = "<label for='" + elem + "'>" + listado.get(elem) + "</label>";
 			String bloque = "<input type='checkbox' name='" + nombre + "' value='" + listado.get(elem) + "' id='" + elem
@@ -59,6 +61,17 @@ public class UtilHtml {
 		res += "</select>";
 
 		return res;
+	}
+
+	public static String nombreArchivo(Part parte) {
+		for (String cd : parte.getHeader("content-disposition").split(";")) {
+			if (cd.trim().startsWith("filename")) {
+				String filename = cd.substring(cd.lastIndexOf('=') + 1).trim().replace("\"", "");
+				return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1);
+			}
+		}
+		return null;
+
 	}
 
 }
