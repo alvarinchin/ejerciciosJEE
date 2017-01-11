@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class prueba
  */
+@SuppressWarnings("serial")
 @WebServlet("/prueba")
 public class prueba extends HttpServlet {
 	

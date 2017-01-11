@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@SuppressWarnings("serial")
 @WebServlet("/ej7")
 public class ej7 extends HttpServlet {
 
@@ -22,11 +23,11 @@ public class ej7 extends HttpServlet {
 		lista.put("i","ir al cine" );
 		 
 		response.setContentType("text/html");
-		
-	
+
+		String[] select = {"comer","cantar"};
 		
 		response.getWriter().println(generaRadio("aficiones", lista,"comer"));
-		response.getWriter().println(generaCheck("aficionesCheck", lista,"comer"));
+		response.getWriter().println(generaCheck("aficionesCheck", lista, select));
 		response.getWriter().println(generaSelect("aficionesCheck", lista,"comer"));
 	}
 

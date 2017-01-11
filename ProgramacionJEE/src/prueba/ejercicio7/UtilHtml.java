@@ -23,14 +23,18 @@ public class UtilHtml {
 		return res;
 	}
 
-	public static String generaCheck(String nombre, Map<String, String> listado, String seleccionado) {
+	public static String generaCheck(String nombre, Map<String, String> listado, String[] selecccionado) {
 
 		String res = "";
 
 		for (String elem : listado.keySet()) {
-
-			String checked = listado.get(elem).equals(seleccionado) ? "checked='checked'" : "";
-
+			String checked="";
+			for (String sel : selecccionado) {
+				if (listado.get(elem).equals(sel)){
+					checked="checked=\"checked\"";
+				}
+				
+			}
 			String etiqueta = "<label for='" + elem + "'>" + listado.get(elem) + "</label>";
 			String bloque = "<input type='checkbox' name='" + nombre + "' value='" + listado.get(elem) + "' id='" + elem
 					+ "'" + checked + ">";
