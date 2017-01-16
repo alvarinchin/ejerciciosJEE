@@ -1,6 +1,5 @@
 package ej13;
 
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,7 +8,7 @@ import java.sql.SQLException;
 
 public class LibroDAO {
 
-	private static boolean insertarEnFormulario(String isbn, String titulo,
+	public static boolean insertarEnFormulario(String isbn, String titulo,
 			String categoria) {
 
 		String sql = "insert into libros (isbn,titulo,categoria) values ( ?,?,?)";
