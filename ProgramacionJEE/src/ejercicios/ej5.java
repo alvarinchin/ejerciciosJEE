@@ -34,7 +34,10 @@ public class ej5 extends HttpServlet {
 		{"SERVER_PROTOCOL",request.getProtocol()},
 		{"SERVER_SOFTWARE",request.getServletContext().getServerInfo()},
 		{"REQUEST_URI",request.getRequestURI()},
+		{"accion",request.getPathInfo().toString().substring(1,request.getPathInfo().toString().length() )},
 		{"REQUEST_URL",request.getRequestURL().toString()},
+		{"base",request.getRequestURL().toString().substring(0, request.getRequestURL().toString().length()-(request.getServletPath().toString().length()+request.getPathInfo().toString().length())).toString()+"/"
+},
 		{"BASE_URL",request.getRequestURL().toString().substring(0, request.getRequestURL().toString().length() - request.getRequestURI().length()) + request.getContextPath() + "/"},
 		};
 		
