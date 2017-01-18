@@ -3,7 +3,10 @@ package org.mvc;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +16,7 @@ public abstract class Controller extends HttpServlet {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected String baseURL;
+	protected Map<String, Object> datos;
 
 	protected void ejecutar(String modo, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -29,12 +33,13 @@ public abstract class Controller extends HttpServlet {
 				+ request.getContextPath() + "/";
 		request.setAttribute("baseUrl", this.baseURL);
 		String accion;
+
 		try {
 			String[] extra = request.getPathInfo().toString().split("/");
 			accion = extra[extra.length - 1]
 					+ (modo.equals("get") ? "Get" : "Post");
 		} catch (NullPointerException e) {
-			accion = "index"+(modo.equals("get") ? "Get" : "Post");
+			accion = "index" + (modo.equals("get") ? "Get" : "Post");
 		}
 
 		try {
@@ -46,9 +51,9 @@ public abstract class Controller extends HttpServlet {
 			e.printStackTrace();
 			response.setContentType("text/html");
 			response.getWriter().println("<h1>Objeto no encontrado</h1>");
-		} catch (SecurityException  e) {
+		} catch (SecurityException e) {
 			e.printStackTrace();
-		}catch (IllegalAccessException e) {
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -66,6 +71,42 @@ public abstract class Controller extends HttpServlet {
 	protected final void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		this.ejecutar("post", request, response);
+	}
+
+	protected void view(String rutaAVista) {
+
+		this.view(rutaAVista, true);
+
+	}
+
+	protected void view(String ruta, Boolean enmarcada) {
+
+		this.request.setAttribute("rutaVista", "/view" + ruta);
+		this.request.setAttribute("baseURL", this.baseURL);
+		for (String elem : this.datos.keySet()) {
+			this.request.setAttribute(elem, this.datos.get(elem));
+		}
+
+		try {
+			if (enmarcada) {
+
+				this.request.getRequestDispatcher(
+						"/view/_templates/_MASTER.jsp").forward(request,
+						response);
+			} else {
+				this.request.getRequestDispatcher(ruta).forward(this.request,
+						this.response);
+			}
+
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
 	}
 
 }

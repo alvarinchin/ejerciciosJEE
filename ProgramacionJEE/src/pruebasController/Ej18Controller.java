@@ -16,16 +16,9 @@ public class Ej18Controller extends Controller {
 	public void saludarGet() {
 	
 		request.setAttribute("baseURL", this.baseURL);
-		try {
-		request.getRequestDispatcher("/saludar/saludar.jsp").forward(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	
+			this.view("saludar/saludar.jsp",false);
+	
 	}
 
 	public void saludarPost() {
