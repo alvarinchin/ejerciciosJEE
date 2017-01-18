@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class Controller extends HttpServlet {
+public abstract class Controller extends HttpServlet {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected String baseURL;
@@ -42,11 +42,13 @@ public class Controller extends HttpServlet {
 			Method funcion = this.getClass().getMethod(accion);
 			funcion.invoke(this);
 
-		} catch (NoSuchMethodException | SecurityException e) {
+		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 			response.setContentType("text/html");
 			response.getWriter().println("<h1>Objeto no encontrado</h1>");
-		} catch (IllegalAccessException e) {
+		} catch (SecurityException  e) {
+			e.printStackTrace();
+		}catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
