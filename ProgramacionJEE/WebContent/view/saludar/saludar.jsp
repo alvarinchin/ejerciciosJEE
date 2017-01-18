@@ -29,7 +29,7 @@
 </head>
 <body>
 	<div class="container">
-	<form action="<%=request.getAttribute("baseURL")%>t7/ej18/saludar" method="post">
+	<form action='<jsp:attribute name="base_url"></jsp:attribute>'>t7/ej18/saludar" method="post">
 		<div class="form-group">
 			<input class="form-control" type="text" name="nombre">
 			<button type="submit" class="bt btn-primary">Enviar</button>

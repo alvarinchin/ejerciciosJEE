@@ -15,8 +15,7 @@ import org.mvc.Controller;
 public class Ej18Controller extends Controller {
 	public void saludarGet() {
 	
-		request.setAttribute("baseURL", this.baseURL);
-	
+		
 			this.view("saludar/saludar.jsp",false);
 	
 	}
