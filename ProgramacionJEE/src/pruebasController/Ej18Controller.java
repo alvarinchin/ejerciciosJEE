@@ -14,9 +14,19 @@ import org.mvc.Controller;
 @WebServlet({ "/t7/ej18", "/t7/ej18/", "/t7/ej18/*" })
 public class Ej18Controller extends Controller {
 	public void saludarGet() {
-	
+		String ruta="saludar/saludar.jsp";
 		
-			this.view("saludar/saludar.jsp",false);
+			this.view(ruta,false);
+			/*try {
+				this.request.getRequestDispatcher("/view/"+ruta).forward(this.request,
+						this.response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
 	
 	}
 

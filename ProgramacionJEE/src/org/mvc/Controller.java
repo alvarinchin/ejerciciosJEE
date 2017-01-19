@@ -3,6 +3,7 @@ package org.mvc;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -15,35 +16,27 @@ public abstract class Controller extends HttpServlet {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected String baseURL;
-	protected Map<String, Object> datos;
+	protected Map<String, Object> datos = new HashMap<String, Object>();
 
-	protected void ejecutar(String modo, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	protected void ejecutar(String modo, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		this.request = request;
 		this.response = response;
-		this.baseURL = request
-				.getRequestURL()
-				.toString()
-				.substring(
-						0,
-						request.getRequestURL().toString().length()
-								- request.getRequestURI().length())
+		this.baseURL = request.getRequestURL().toString().substring(0,
+				request.getRequestURL().toString().length() - request.getRequestURI().length())
 				+ request.getContextPath() + "/";
 		request.setAttribute("baseUrl", this.baseURL);
 		String accion;
 
-		try {
-			String[] extra = request.getPathInfo().toString().split("/");
-			accion = extra[extra.length - 1]
-					+ (modo.equals("get") ? "Get" : "Post");
-		} catch (NullPointerException e) {
-			accion = "index" + (modo.equals("get") ? "Get" : "Post");
-		}
+		String[] extra = request.getPathInfo() != null ? request.getPathInfo().split("/") : null;
+		accion = (extra != null && extra.length > 0) ? extra[1] : "index";
+		
+				accion += (modo.equals("get") ? "Get" : "Post");
 
 		try {
 
 			Method funcion = this.getClass().getMethod(accion);
+
 			funcion.invoke(this);
 
 		} catch (NoSuchMethodException e) {
@@ -62,13 +55,11 @@ public abstract class Controller extends HttpServlet {
 
 	}
 
-	protected final void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		this.ejecutar("get", request, response);
 	}
 
-	protected final void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	protected final void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		this.ejecutar("post", request, response);
 	}
 
@@ -80,31 +71,38 @@ public abstract class Controller extends HttpServlet {
 
 	protected void view(String ruta, Boolean enmarcada) {
 
-		this.request.setAttribute("rutaVista", "/view" + ruta);
+		this.request.setAttribute("rutaVista", "/view/" + ruta);
 		this.request.setAttribute("baseURL", this.baseURL);
+
 		for (String elem : this.datos.keySet()) {
 			this.request.setAttribute(elem, this.datos.get(elem));
 		}
 
-		try {
+		try
+
+		{
 			if (enmarcada) {
 
-				this.request.getRequestDispatcher(
-						"/view/_templates/_MASTER.jsp").forward(request,
-						response);
+				this.request.getRequestDispatcher("/view/_templates/_MASTER.jsp").forward(request, response);
 			} else {
-				this.request.getRequestDispatcher(ruta).forward(this.request,
-						this.response);
+				this.request.getRequestDispatcher("/view/" + ruta).forward(this.request, this.response);
 			}
 
-		} catch (ServletException e) {
+		} catch (
+
+		ServletException e)
+
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (
+
+		IOException e)
+
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 
