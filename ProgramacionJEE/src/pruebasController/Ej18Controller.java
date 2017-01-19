@@ -11,22 +11,14 @@ import org.mvc.Controller;
 
 
 @SuppressWarnings("serial")
-@WebServlet({ "/t7/ej18", "/t7/ej18/", "/t7/ej18/*" })
+@WebServlet({ "/t7/ej18"
+		+ "", "/t7/ej18/", "/t7/ej18/*" })
 public class Ej18Controller extends Controller {
 	public void saludarGet() {
 		String ruta="saludar/saludar.jsp";
-		
+
 			this.view(ruta,false);
-			/*try {
-				this.request.getRequestDispatcher("/view/"+ruta).forward(this.request,
-						this.response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+			
 	
 	}
 
@@ -34,15 +26,8 @@ public class Ej18Controller extends Controller {
 		
 		String nombre = request.getParameter("nombre");
 		request.setAttribute("nombre", nombre);
-		try {
-		request.getRequestDispatcher("/saludar/saludarOK.jsp").forward(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		datos.put("nombre", nombre);
+		view("saludar/saludarOK.html", false);
 
 	}
 
