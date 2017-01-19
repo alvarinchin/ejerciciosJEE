@@ -27,23 +27,16 @@ public class Ej18Controller extends Controller {
 		String nombre = request.getParameter("nombre");
 		request.setAttribute("nombre", nombre);
 		datos.put("nombre", nombre);
-		view("saludar/saludarOK.html", false);
+		view("saludar/saludarOK.jsp", false);
 
 	}
 
 	public void despedirseGet() {
 		
 
-		request.setAttribute("baseURL", this.baseURL);
-		try {
-		request.getRequestDispatcher("/despedir/despedirse.jsp").forward(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String ruta="despedir/despedirse.jsp";
+
+		this.view(ruta,false);
 
 
 	}
@@ -52,15 +45,9 @@ public class Ej18Controller extends Controller {
 		
 		String nombre = request.getParameter("nombre");
 		request.setAttribute("nombre", nombre);
-		try {
-		request.getRequestDispatcher("/despedir/despedirseOK.jsp").forward(request, response);
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		datos.put("nombre", nombre);
+		view("despedir/despedirseOK.jsp", false);
+
 
 		
 	}
