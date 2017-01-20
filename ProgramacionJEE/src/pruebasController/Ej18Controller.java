@@ -17,7 +17,7 @@ public class Ej18Controller extends Controller {
 	public void saludarGet() {
 		String ruta="saludar/saludar.jsp";
 
-			this.view(ruta,false);
+			this.view(ruta,true);
 			
 	
 	}
@@ -27,7 +27,7 @@ public class Ej18Controller extends Controller {
 		String nombre = request.getParameter("nombre");
 		request.setAttribute("nombre", nombre);
 		datos.put("nombre", nombre);
-		view("saludar/saludarOK.jsp", false);
+		view("saludar/saludarOK.jsp", true);
 
 	}
 
@@ -36,7 +36,7 @@ public class Ej18Controller extends Controller {
 
 		String ruta="despedir/despedirse.jsp";
 
-		this.view(ruta,false);
+		this.view(ruta,true);
 
 
 	}
@@ -46,7 +46,7 @@ public class Ej18Controller extends Controller {
 		String nombre = request.getParameter("nombre");
 		request.setAttribute("nombre", nombre);
 		datos.put("nombre", nombre);
-		view("despedir/despedirseOK.jsp", false);
+		view("despedir/despedirseOK.jsp", true);
 
 
 		
