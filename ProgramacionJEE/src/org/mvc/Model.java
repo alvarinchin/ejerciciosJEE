@@ -13,13 +13,14 @@ public class Model {
 			String user= "root";
 			String schema = "libros";
 			String pass="";
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost/"+schema, user,pass);
-			this.db= con;
+			this.db = DriverManager.getConnection("jdbc:mysql://localhost/"+schema, user,pass);
+		
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	
